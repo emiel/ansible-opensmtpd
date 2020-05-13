@@ -1,0 +1,8 @@
+---
+# handlers file for opensmtpd
+
+- name: restart opensmtpd
+  become: true
+  service:
+    name: opensmtpd
+    state: restarted

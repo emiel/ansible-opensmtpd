@@ -1,0 +1,7 @@
+table aliases file:/etc/aliases
+table relay_credentials file:/etc/smtpd-credentials.table
+
+listen on lo
+
+accept for local alias <aliases> deliver to mbox
+accept for any relay via {{ opensmtpd_relay }} auth <relay_credentials>

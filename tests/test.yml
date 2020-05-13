@@ -1,0 +1,10 @@
+---
+
+- hosts: all
+  remote_user: root
+  vars:
+    opensmtpd_relay: smtp://dragon.ttyout.net
+    opensmtpd_relay_username: foobar
+    opensmtpd_relay_password: secret
+  roles:
+    - ansible-opensmtpd

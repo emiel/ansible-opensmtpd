@@ -1,0 +1,10 @@
+table aliases file:/etc/aliases
+table relay_credentials file:/etc/smtpd-credentials.table
+
+listen on localhost
+
+action local_mail mbox alias <aliases>
+action outbound_mail relay host smtp://dragon@dragon.ttyout.net auth <relay_credentials>
+
+match from local for local action local_mail
+match from local for any action outbound_email

@@ -1,0 +1,44 @@
+---
+# tasks file for opensmtpd
+
+- name: Installs opensmtpd packages
+  apt:
+    name: opensmtpd
+    cache_valid_time: 600
+
+- name: Ensures mailname file in place
+  template:
+    src: mailname.j2
+    dest: /etc/mailname
+    owner: root
+    group: root
+    mode: 0644
+  notify: restart opensmtpd
+
+- name: Ensures opensmtpd config in place
+  template:
+    src: smtpd.conf.j2
+    dest: /etc/smtpd.conf
+    owner: root
+    group: root
+    mode: 0640
+  notify: restart opensmtpd
+
+- name: Ensures relay credentials in place
+  template:
+    src: smtpd-credentials.j2
+    dest: /etc/smtpd-credentials.table
+    owner: root
+    group: root
+    mode: 0600
+  notify: restart opensmtpd
+
+- name: Ensure opensmtpd is running
+  service:
+    name: opensmtpd
+    enabled: true
+    state: started
+
+- name: Always update aliases
+  become: true
+  shell: smtpctl update table aliases

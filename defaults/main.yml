@@ -1,0 +1,4 @@
+---
+# defaults file for opensmtpd
+
+opensmtpd_mailname: "{{ inventory_hostname }}"
